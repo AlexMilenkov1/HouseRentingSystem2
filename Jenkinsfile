@@ -1,40 +1,25 @@
 pipeline {
-    agent any
-
-    environment {
-        // Define your environment variables (e.g., for .NET SDK if necessary)
-        DOTNET_CLI_HOME = '/tmp'  // This is needed for environments like Jenkins to avoid permission issues
+    agent {
+        docker { image 'mcr.microsoft.com/dotnet/sdk:6.0' }
     }
-
     stages {
         stage('Restore') {
             steps {
                 echo 'Restoring NuGet packages...'
-                sh 'dotnet restore'  // Restore the NuGet packages
+                sh 'dotnet restore'
             }
         }
-
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'dotnet build --configuration Release'  // Build the project in Release mode
+                sh 'dotnet build'
             }
         }
-
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'dotnet test --configuration Release'  // Run tests in Release mode
+                sh 'dotnet test'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Check the logs for errors.'
         }
     }
 }
