@@ -4,13 +4,13 @@ pipeline {
     stages {  // Missing 'stages' block
         stage('Build') {
             steps {
-                bat 'dotnet build'
+                sh 'dotnet build'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'dotnet test'
+                sh 'dotnet test'
             }
         }
     }
