@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+    stages {  // Missing 'stages' block
         stage('Build') {
             steps {
                 sh 'dotnet build'
